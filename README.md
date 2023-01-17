@@ -3,12 +3,12 @@ This project includes a demo of including state machine in an existing app by us
 
 ## Overview
 
-### What is Spring Statemachine?
+### What is Spring Statemachine
 According to official [Spring document](https://spring.io/projects/spring-statemachine#:~:text=Spring%20Statemachine%20is%20a%20framework,to%20ease%20complex%20state%20configuration.). it is a framework for application developers to use state machine concepts.
 State machines are powerful because behaviour is always guaranteed to be consistent, 
 making it relatively easy to debug.
 
-### What is this project about?
+### What is this project about
 The main objective of using a state machine is to control change of state for an entity. 
 For example, in this application the entity is *Order* and an order can be in CREATED, 
 PROCESSED or DELIVERED state at any given point of time. The change of state for an order is 
@@ -24,3 +24,19 @@ context integration is made, that can easily insert state machine functionality 
 
 One of the annotations that can be used to achieve this is **@WithStateMachine**. This annotation can be used
 to associate a state machine with an existing bean.
+
+## Running the application
+
+This application is going to run port 8080. All the properties are in `application.yml`. No other run config is needed.
+
+There are 3 APIs defined,
+
+- GET `/order/create`, returns order Id.
+- GET `/order/process/{orderId}`, changes the state from *Created* to *Processed* and returns a message
+- GET `/order/deliver/{orderId}`, changes the state from *Processed* to *Delivered* and returns a message
+
+Call the APIs in this order to see the desired output.
+
+## Future Tasks
+
+- Include persistence to save state of a state machine for more dynamic behavior like allowing state machine instantitation on-demand.
