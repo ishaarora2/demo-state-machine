@@ -15,15 +15,15 @@ public class StateMachineWithSMAnnotation {
 
     private static final String ORDER_ID = "orderId";
 
-    @OnStateChanged(source = "CREATED", target = "FAILED")
-    public void failedOrder(StateMachine<OrderState, OrderEvent> stateMachine, Message message) {
+    @OnStateChanged(source = "CREATED", target = "PROCESSED")
+    public void processOrder(StateMachine<OrderState, OrderEvent> stateMachine, Message message) {
 
         String orderId = message.getHeaders().get(ORDER_ID).toString();
 
         log.debug(String.format("State: %s for order Id: %s ", stateMachine.getState().getId(), orderId));
     }
 
-    @OnTransition(source = "CREATED", target = "DELIVERED")
+    @OnTransition(source = "PROCESSED", target = "DELIVERED")
     public void deliverOrder(StateMachine<OrderState, OrderEvent> stateMachine, Message message) {
 
         String orderId = message.getHeaders().get(ORDER_ID).toString();
